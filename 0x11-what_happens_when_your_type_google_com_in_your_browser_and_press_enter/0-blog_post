@@ -1,0 +1,99 @@
+INTRODUCTION TO HOW THE WEB STACK WORKS
+
+We use internet all the time for all sorts of purposes, and it has become like a second nature to browse all day.
+So much so that we’re most of the time content with just knowing that our browser works and does what it’s asked.
+But it’s not magic (or is it?), and the web pages we see in that rectangle machine must come from somewhere.So how
+is it all happening? What is happening under the hood between the moment we enter a URL (Uniform Resource Locator)
+in the search bar and the moment we receive the content of the desired pagei?
+
+Before we dive deep into this mysterious thing, it is important to know what a client-server model is. In-order for 
+us to communicate with “Google”, we need our computerwith a browser from our side, and Google server to respond to 
+our request. Like dialing a phone need a receiver or someone to pick the phone up, we also need some kind of responder
+from the google side in-order a that webpage, and we call it server. Server is nothing more than a computer. So, in this 
+case, our computer is a client, and the google ‘computer’ is a server. But this is not merely what happens when you type 
+‘www. google. com’. There are many other layers between the client and the server in a client-server model, let’s break is down.
+
+
+   1. The DNS Server
+
+When we type the URL www. google. com into our browser (could be Google, Firefox, Safari, et cetera) and press ‘Enter’, the first
+thing that the browser is going to do is break down the URL in pieces. The browser is going to consider the google. com part first,
+which is a domain name. To understand what ‘domain name’ is, first we need to know what an ‘IP address’ is. IP - Internet Protocol.
+
+Say you want to make a phone call to one of your friend. Obviously you need the phone number of your friend you want to call. Well 
+like wise, computers use an IP address to communicate with each other through the internet. Like a person has unique phone number,
+so do computer. They have unique IP address. In my country Namibia, we have a defined type of format for a phone number. A phone
+number digit must be exactly 10 digits, like the University of Namibia's phone be like,0612063111. Other wise it won’t work. Same 
+thing to IP addresses. they have a specific format. There should be four numbers, from 0 to 255 separated by dots, like this, 
+168.95.4.23. This is called IPv4. More on IPv4 and IPv6 on another topics. But the concept is the same, unique numbers that identifies 
+computers uniquely. And Google server has one too, 8.8.4.4. YouTube has one too, which is 208.65.153.238. Also LinkedIn, Instagram, Snapchat,
+Telegram, et cetera. As you can see it, it is getting already really difficult to memorize the IP addresses. Imagine we have to search 
+websites with IP address. That is when domain name comes to the recue. Like you save you friend’s phone number in your contact with a 
+name you want to, domain names are alphabetic representation for IP address. The reason we have domain names in the first place is because 
+humans remember words better than numbers. Thankfully, the DNS is here for us to remember the IP of each domain. If the browser doesn’t know 
+that domain name (it’s not stored in its cache), it is going to ask the Domain Name System for the IP address corresponding to this particular domain name.
+
+The DNS request first goes through the resolver. The resolver is usually our Internet Service Provider, and if it doesn’t find the IP in its cache, 
+it’s going to request the root server. The root server knows where the TLD (Top-Level Domain) server is. In our case, the top-level domain is .com.
+Other types of TLD are .net, .fr, etc. If the TLD server doesn’t know the IP, it points the resolver to the Authoritative Name Servers for the domain
+name. Usually, there is more than one name server attached to one domain name. But any of those name servers can give the IP for the domain name they 
+are attached to. Now the resolver has the IP address(for example, 54.172.4.191), and can send it back to the browser which will perform its request to
+the corresponding server.
+
+  2.  Protocols: TCP/IP
+
+We mentioned how domain names actually represent IP addresses, but IP is not the only type of protocol use by the Internet. The Internet Protocol Suite 
+is often referred to as TCP/IP (TCP stand for Transmission Control Protocol), and it also contains other types of protocols. It’s a set of rules that 
+define how servers and clients interact over the network, and how data should be transferred, broken into packets, received, etc.
+
+  3.  Firewall
+
+To protect themselves from hackers and attacks, servers are often equipped with a firewall. A firewall is a software that sets rules about what can enter 
+or leave a part of a network. In the case of our example, when the browser asks for the website at the address 54.172.4.191, that request has be processed 
+by a firewall which will decide if it’s safe, or if it’s a threat to the server’s security. The browser itself can also be equipped with a firewall to detect
+if the IP given by the DNS request is a potential malicious agent.
+
+  4. HTTPS/SLL (Security & Encryption)
+
+Now that the browser has the IP address, it is going to take care of the other part of the URL, the https:// part. HTTPS stands for HyperText Transfer Protocol
+Secure, and is a secure version of the regular HTTP. This transfer protocol defines different types of requests and responses served to clients and servers over 
+a network. In other terms, it’s the main way to transfer data between a browser and a website. HTTP and HTTPS requests include GET, POST, PUT, and others. The HTTPS
+requests and responses are encrypted, which ensure the users that their data can’t be stolen or used by third-parties. For example, if we put our credit card informationin a website that uses HTTPS, we are guaranteed that this info is not going to be stored in plain text somewhere accessible to anybody.
+
+Another key component in securing websites is the SSL certificate. SSL stands for Secure Sockets Layer (also known as TSL, Transport Layer Security). The certificate needs be issued from a trusted Certificate Authority, like the famous Let’s Encrypt for example, which gives free SSL certificates. When a website has this certificate, we’re able to see a little lock icon next to the website name in the search bar. On some browsers and with certain types of SSL certificates, the bar turns green.
+
+  5. Load Balancer
+
+As we mentioned earlier, websites live on servers. For most website where the traffic is consequent, it would be impossible to be hosted on a single server. Plus, it would create a Single Point of Failure (SPOF), because it would only need one attack on said server to take the whole site down.
+
+As needs for higher availability and security rises, websites started augmenting the number of servers they have, organizing them in clusters, and using load-balancers. A load-balancer is a software program that distribute network requests between several servers, following a load-balancing algorithm. HAproxy is a very famous load-balancer, and example of algorithms that we can use are the round-robin, which distributes the requests alternating between all the servers evenly and consequentially, or the least-connection, which distributes requests depending on the current server loads.
+
+  6.  Web Server
+
+Once the requests have been evenly distributed to the servers, they will be processed by one or more web servers. A web server is a software program that serves static content, like simple HTML pages, images or plain text files. Examples of web servers are Nginx or Apache. The web server is responsible for finding where the static content corresponding to the address asked for is living, and for serving it as an HTTP, or HTTPS response.
+
+  7.  Application Server
+
+Having a web server is the basis of any web page. But most sites don’t just want a static page where no interaction is happening, and most websites are dynamic. That means that it’s possible to interact with the site, save information into it, log in with a user name and a password, etc.
+
+This is made possible by the use of one or more application servers. These are software programs responsible for operating applications, communicate with databases and manage user information, among other things. they work behind web servers and will be able to serve a dynamic application using the static content from the web server.
+
+  8.  Data Base
+
+The last step in our web infrastructure is the Data Base Management System (DBMS). A database is a collection of data, and the DBMS is the program that is going to interact with the database and retrieve, add, modify data in it.
+
+There are several types of database models. The two main ones are relational databases, and non-relational databases. A relational database can be seen as a collection of tables representing objects, where each column is an attribute and each row is an instance of that object. We can perform SQL (Structured Query Language) queries on those databases. MySQL and PostgreSQL are two popular relational databases. A non-relational database can have many forms, as the data inserted in it doesn’t have to follow a particular schema. They are also called NoSQL databases.
+
+A web stack has many layers, and we touched just the surface of it. When we type a URL in a browser, it takes only microseconds for all the agents we talked about to form a response and serve it to the client. Even knowing what is happening behind the curtain, it is still pretty magical to see it happening before our eyes.
+
+There is much to say, but the time limit us. Let me conclude my article by showing you a diagram of what we talked about.
+
+
+
+I hope you learned something. Have a great day.
+Published by
+
+Elton Mziti
+
+ALX Software Engineer
+
