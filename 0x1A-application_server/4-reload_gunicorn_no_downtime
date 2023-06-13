@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+# Gracefully reload gunicorn worker processes
